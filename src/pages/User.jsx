@@ -1,9 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
+//MUI
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
+
+//USER COMPONENT
 const User = () => {
   const [user, setUser] = useState([]);
-  
 
   const getUser = async () => {
     const userFetch = await fetch(`https://jsonplaceholder.typicode.com/users`);
@@ -16,44 +46,47 @@ const User = () => {
 
   return (
     <>
-      <table className="table-auto w-full rounded-lg border">
-        <caption className="table-caption">User's Data</caption>
-        <thead>
-          <tr className="table-row bg-slate-300">
-            <th className="border p-2">ID</th>
-            <th className="border p-2">Name</th>
-            <th className="border p-2">Email</th>
-            <th className="border p-2">Address</th>
-            <th className="border p-2">Phone Number</th>
-            <th className="border p-2">Post</th>
-          </tr>
-        </thead>
-        <tbody>
-          {user.length > 0 &&
-            user.map((cur) => {
-              return (
-                <tr key={cur.id} className="table-row bg-slate-200">
-                  <td className="border p-2">{cur.id}</td>
-                  <td className="border p-2">{cur.name}</td>
-                  <td className="border p-2">{cur.email}</td>
-                  <td className="border p-2">
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>#</StyledTableCell>
+              <StyledTableCell align="right">Name</StyledTableCell>
+              <StyledTableCell align="right">Email</StyledTableCell>
+              <StyledTableCell align="right">Address</StyledTableCell>
+              <StyledTableCell align="right">Phone</StyledTableCell>
+              <StyledTableCell align="right">Post</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {user.length > 0 &&
+              user.map((cur) => (
+                <StyledTableRow key={cur.id}>
+                  <StyledTableCell component="th" scope="row">
+                    {cur.id}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{cur.name}</StyledTableCell>
+                  <StyledTableCell align="right">{cur.email}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    {" "}
                     {cur.address.street +
                       "," +
                       cur.address.city +
                       "," +
                       cur.address.zipcode}
-                  </td>
-                  <td className="border p-2">{cur.phone}</td>
-                  <td className="border p-2">
-                    <Link to="/user-post" state={{ id: cur.id }}>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{cur.phone}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <Link to="/user-post" state={{ id: cur.id }} className="underline-none">
                       &#128065;
                     </Link>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
     </>
   );
 };
