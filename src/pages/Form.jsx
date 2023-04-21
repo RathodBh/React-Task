@@ -1,28 +1,19 @@
 import React, { useState } from "react";
 import Achievement from "./Achievement";
 const Form = () => {
-  const [fnameErr, setFnameErr] = useState("");
-  const [lnameErr, setLnameErr] = useState("");
-  const [mailErr, setMailErr] = useState("");
-  const [phoneErr, setPhoneErr] = useState("");
-  const [dobErr, setdobErr] = useState("");
-  const [genderErr, setGenderErr] = useState("");
-  const [addErr, setAddErr] = useState("");
-  const [hobbiesErr, setHobbiesErr] = useState("");
-  const [achTitleErr, setAchTitleErr] = useState("");
-  const [achYearErr, setAchYearErr] = useState("");
-  
+  const [err, setErr] = useState({});
+
   const [ach, setAch] = useState([
     {
       title: "",
       year: "",
     },
   ]);
-  // const [err,setErr] = useState({});
+
 
   const checkVal = (
     condition,
-    setState,
+    errName,
     msg,
     condition2 = false,
     msg2 = "",
@@ -30,13 +21,26 @@ const Form = () => {
     msg3 = ""
   ) => {
     if (condition) {
-      setState(msg);
+      setErr((err) => ({
+        ...err,
+        [errName]: msg,
+      }));
     } else if (condition2) {
-      setState(msg2);
+      setErr((err) => ({
+        ...err,
+        [errName]: msg2,
+      }));
     } else if (condition3) {
-      setState(msg3);
+      setErr((err) => ({
+        ...err,
+        [errName]: msg3,
+      }));
     } else {
-      setState("");
+      setErr((err) => ({
+        ...err,
+        [errName]: "",
+      }));
+      
     }
   };
 
@@ -51,10 +55,7 @@ const Form = () => {
     const gender = e.target.gender.value;
     const add = e.target.add.value;
     const hobbies = e.target.hobbies;
-    // const achTitles = e.target.achievementTitle;
-    // const achYears = e.target.achievementYear;
 
-    // console.log("🚀 ~ file: Form.jsx:53 ~ handleSubmit ~ achTitles:", achTitles,achYears)
     let hobbiesArr = [];
 
     hobbies?.forEach((cur) => {
@@ -69,56 +70,56 @@ const Form = () => {
     // check conditions
     checkVal(
       !fname,
-      setFnameErr,
+      "setFnameErr",
       "Please Enter FirstName",
       fname.length < 2,
       "First name should be greater than 1 characters"
     );
     checkVal(
       !lname,
-      setLnameErr,
+      "setLnameErr",
       "Please Enter Last Name",
       lname.length < 2,
       "Last name should be greater than 1 characters"
     );
-    checkVal(!gender, setGenderErr, "Please Select a gender");
+    checkVal(!gender, "setGenderErr", "Please Select a gender");
     checkVal(
       !dob,
-      setdobErr,
+      "setdobErr",
       "Please Select a Date of birth",
       1980 < new Date(dob).getFullYear(),
       "Please Enter date of birth less than 1980"
     );
     checkVal(
       !email,
-      setMailErr,
+      "setMailErr",
       "Please Enter your email ID",
       !/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email),
       "Please Enter valid Email ID"
     );
     checkVal(
       !phone,
-      setPhoneErr,
+      "setPhoneErr",
       "Please Enter your phone number",
       phone.length !== 10,
       "Please Enter valid Phone number, Phone number must be 10 digits"
     );
-    checkVal(!add, setAddErr, "Please Enter address");
+    checkVal(!add, "setAddErr", "Please Enter address");
 
     checkVal(
       hobbiesArr.length === 0,
-      setHobbiesErr,
+      "setHobbiesErr",
       "Please Select atleast one Interest"
     );
     checkVal(
       nullTitles.length > 0,
-      setAchTitleErr,
+      "setAchTitleErr",
       "Please enter all achievement titles"
     );
     checkVal(
       nullYears.length > 0,
-      setAchYearErr,
-      "Please enter all achievement titles"
+      "setAchYearErr",
+      "Please enter all achievement year"
     );
   };
 
@@ -146,9 +147,10 @@ const Form = () => {
             id="fname"
             placeholder="Enter First name"
 
-            // required
           />
-          <span className="err">{fnameErr}</span>
+          <span className="err">
+            {err["setFnameErr"]}
+          </span>
         </div>
         <div className="m-2">
           <input
@@ -157,9 +159,8 @@ const Form = () => {
             name="lname"
             id="lname"
             placeholder="Enter Last name"
-            // required
           />
-          <span className="err">{lnameErr}</span>
+          <span className="err">{err["setLnameErr"]}</span>
         </div>
         <div className="m-2">
           <input
@@ -168,9 +169,8 @@ const Form = () => {
             name="phone"
             id="phone"
             placeholder="Enter Phone number"
-            // required
           />
-          <span className="err">{phoneErr}</span>
+          <span className="err">{err["setPhoneErr"]}</span>
         </div>
         <div className="m-2">
           <input
@@ -179,9 +179,8 @@ const Form = () => {
             name="email"
             id="email"
             placeholder="Enter Email ID"
-            // required
           />
-          <span className="err">{mailErr}</span>
+          <span className="err">{err["setMailErr"]}</span>
         </div>
         <div className="m-2">
           <input
@@ -192,7 +191,7 @@ const Form = () => {
             placeholder="Enter DOB"
             // required
           />
-          <span className="err">{dobErr}</span>
+          <span className="err">{err["setdobErr"]}</span>
         </div>
         <div className="m-2">
           <input
@@ -201,7 +200,6 @@ const Form = () => {
             name="gender"
             value="Male"
             id="male"
-            // required
           />
           <label htmlFor="male">Male</label>
           <br />
@@ -212,11 +210,10 @@ const Form = () => {
             name="gender"
             value="female"
             id="female"
-            // required
           />
           <label htmlFor="female">Female</label>
           <br />
-          <span className="err">{genderErr}</span>
+          <span className="err">{err["setGenderErr"]}</span>
         </div>
         <div className="m-2">
           <textarea
@@ -226,7 +223,7 @@ const Form = () => {
             rows="4"
             placeholder="Enter address"
           ></textarea>
-          <span className="err">{addErr}</span>
+          <span className="err">{err["setAddErr"]}</span>
         </div>
         <div className="m-2">
           <input
@@ -256,7 +253,7 @@ const Form = () => {
           />
           <label htmlFor="WebSurfing">Web Surfing</label>
           <br />
-          <span className="err">{hobbiesErr}</span>
+          <span className="err">{err["setHobbiesErr"]}</span>
         </div>
         <div className="m-2">
           {ach.map((a, i) => (
@@ -269,7 +266,7 @@ const Form = () => {
                 id={i}
               />
 
-              {ach.length > 1 && i !== ach.length ? (
+              {ach?.length > 1 && i !== ach?.length ? (
                 <button
                   type="button"
                   className="m-2 p-2"
@@ -290,9 +287,9 @@ const Form = () => {
             + Add Achievement
           </button>
           <br />
-          <span className="err">{achTitleErr}</span>
+          <span className="err">{err["setAchTitleErr"]}</span>
           <br />
-          <span className="err">{achYearErr}</span>
+          <span className="err">{err["setAchYearErr"]}</span>
         </div>
         <div className="m-2">
           <button type="submit" className="p-2">
