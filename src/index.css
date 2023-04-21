@@ -13,3 +13,19 @@
   margin:20px;
   display:inline-block;
 }
+.m-2{
+  margin: 20px;
+}
+.mx-0{
+  margin-left: 0;
+  margin-right:0;
+}
+
+.p-2{
+  padding:12px  17px;
+}
+.err{
+  padding:12px  17px;
+  display: inline-block;
+  color: red;
+}
