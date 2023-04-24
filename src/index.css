@@ -10,8 +10,14 @@
   display: flex;
   justify-content: center;
   align-items:center;
+  flex-direction: column;
   margin:20px;
-  display:inline-block;
+}
+.fr{
+  flex-direction: row;
+}
+.jcsb{
+  justify-content: space-between;
 }
 .m-2{
   margin: 20px;
@@ -20,12 +26,24 @@
   margin-left: 0;
   margin-right:0;
 }
-
+.ms-0{
+  margin-left: 0px !important;
+}
 .p-2{
   padding:12px  17px;
 }
+.px-0{
+  padding-left: 0px !important;
+}
 .err{
-  padding:12px  17px;
+  padding:12px 17px;
   display: inline-block;
   color: red;
+  margin-bottom: 10px;
+}
+.w-50{
+  width: 50%;
+}
+.w-100{
+  width: 100%;
 }

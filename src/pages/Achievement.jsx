@@ -1,4 +1,5 @@
 import React from "react";
+import TextField from "@mui/material/TextField";
 
 const Achievement = ({ title, year, setVal, oldVal, id }) => {
 
@@ -34,22 +35,22 @@ const Achievement = ({ title, year, setVal, oldVal, id }) => {
   };
   return (
     <>
-      <input
+      <TextField
         className="p-2 mx-0"
         type="text"
         name="achievementTitle"
         id="title1"
-        placeholder="Enter achievement title"
+        label="Enter achievement title"
         onChange={changeTitle}
         value={title}
       />
       &nbsp; &nbsp;
-      <input
+      <TextField
         className="p-2 mx-0"
         type="number"
         name="achievementYear"
         id="year1"
-        placeholder="Enter achievement Year"
+        label="Enter achievement Year"
         value={year}
         onChange={changeYear}
       />

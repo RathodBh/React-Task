@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Achievement from "./Achievement";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+
 const Form = () => {
   const [err, setErr] = useState({});
 
@@ -9,7 +12,6 @@ const Form = () => {
       year: "",
     },
   ]);
-
 
   const checkVal = (
     condition,
@@ -40,7 +42,6 @@ const Form = () => {
         ...err,
         [errName]: "",
       }));
-      
     }
   };
 
@@ -138,64 +139,69 @@ const Form = () => {
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="m-2">
-          <input
-            className="p-2"
+      <form onSubmit={handleSubmit} className="all-center w-100">
+        <div className="w-50 all-center">
+            <h1>USER FORM</h1>
+        </div>
+        <div className="w-50">
+          <TextField
+            variant="outlined"
+            className="p-2 w-100"
             type="text"
             name="fname"
             id="fname"
-            placeholder="Enter First name"
-
+            label="Enter First name"
           />
-          <span className="err">
-            {err["setFnameErr"]}
-          </span>
+          <span className="err px-0">{err["setFnameErr"]}</span>
         </div>
-        <div className="m-2">
-          <input
-            className="p-2"
+
+        <div className="w-50">
+          <TextField
+            variant="outlined"
+            className="p-2 w-100"
             type="text"
             name="lname"
             id="lname"
-            placeholder="Enter Last name"
+            label="Enter Last name"
           />
-          <span className="err">{err["setLnameErr"]}</span>
+          <span className="err px-0">{err["setLnameErr"]}</span>
         </div>
-        <div className="m-2">
-          <input
-            className="p-2"
+        <div className="w-50">
+          <TextField
+            variant="outlined"
+            className="p-2 w-100"
             type="number"
             name="phone"
             id="phone"
-            placeholder="Enter Phone number"
+            label="Enter Phone Number"
           />
-          <span className="err">{err["setPhoneErr"]}</span>
+          <span className="err px-0">{err["setPhoneErr"]}</span>
         </div>
-        <div className="m-2">
-          <input
-            className="p-2"
-            type="text"
+        <div className="w-50">
+          <TextField
+            variant="outlined"
+            className="p-2 w-100"
+            type="email"
             name="email"
             id="email"
-            placeholder="Enter Email ID"
+            label="Enter email"
           />
-          <span className="err">{err["setMailErr"]}</span>
+          <span className="err px-0">{err["setMailErr"]}</span>
         </div>
-        <div className="m-2">
-          <input
-            className="p-2"
+        <div className="w-50">
+          <TextField
+            variant="outlined"
+            className="p-2 w-100"
             type="date"
             name="dob"
             id="dob"
-            placeholder="Enter DOB"
-            // required
+            // label="Enter date of birth"
           />
-          <span className="err">{err["setdobErr"]}</span>
+          <span className="err px-0">{err["setdobErr"]}</span>
         </div>
-        <div className="m-2">
+        <div className="w-50">
           <input
-            className="p-2 m-2"
+            className="p-2 m-2 ms-0"
             type="radio"
             name="gender"
             value="Male"
@@ -205,7 +211,7 @@ const Form = () => {
           <br />
 
           <input
-            className="p-2 m-2"
+            className="p-2 m-2 ms-0"
             type="radio"
             name="gender"
             value="female"
@@ -213,21 +219,22 @@ const Form = () => {
           />
           <label htmlFor="female">Female</label>
           <br />
-          <span className="err">{err["setGenderErr"]}</span>
+          <span className="err px-0">{err["setGenderErr"]}</span>
         </div>
-        <div className="m-2">
-          <textarea
+        <div className="w-50">
+          <TextField
+            className="p-2 w-100"
             name="add"
             id="add"
-            cols="30"
-            rows="4"
-            placeholder="Enter address"
-          ></textarea>
-          <span className="err">{err["setAddErr"]}</span>
+            label="Enter address"
+            rows={4}
+            multiline
+          />
+          <span className="err px-0">{err["setAddErr"]}</span>
         </div>
-        <div className="m-2">
+        <div className="w-50">
           <input
-            className="p-2 m-2"
+            className="p-2 m-2 ms-0"
             type="checkbox"
             name="hobbies"
             value="Reading"
@@ -236,7 +243,7 @@ const Form = () => {
           <label htmlFor="Reading">Reading</label>
           <br />
           <input
-            className="p-2 m-2"
+            className="p-2 m-2 ms-0"
             type="checkbox"
             name="hobbies"
             value="Writing"
@@ -245,7 +252,7 @@ const Form = () => {
           <label htmlFor="Writing">Writing</label>
           <br />
           <input
-            className="p-2 m-2"
+            className="p-2 m-2 ms-0"
             type="checkbox"
             name="hobbies"
             value="Web Surfing"
@@ -253,11 +260,11 @@ const Form = () => {
           />
           <label htmlFor="WebSurfing">Web Surfing</label>
           <br />
-          <span className="err">{err["setHobbiesErr"]}</span>
+          <span className="err px-0">{err["setHobbiesErr"]}</span>
         </div>
-        <div className="m-2">
+        <div className="w-50">
           {ach.map((a, i) => (
-            <div className="m-2 mx-0" key={i}>
+            <div className="m-2 mx-0 all-center fr jcsb" key={i}>
               <Achievement
                 title={a.title}
                 year={a.year}
@@ -267,7 +274,7 @@ const Form = () => {
               />
 
               {ach?.length > 1 && i !== ach?.length ? (
-                <button
+                <button 
                   type="button"
                   className="m-2 p-2"
                   onClick={() => removeAchievement(i)}
@@ -279,22 +286,22 @@ const Form = () => {
               )}
             </div>
           ))}
-          <button
+          <Button variant="outlined"
             type="button"
             className="m-2 mx-0 p-2"
             onClick={addAchievement}
           >
             + Add Achievement
-          </button>
+          </Button>
           <br />
           <span className="err">{err["setAchTitleErr"]}</span>
           <br />
           <span className="err">{err["setAchYearErr"]}</span>
         </div>
-        <div className="m-2">
-          <button type="submit" className="p-2">
+        <div className="w-50">
+          <Button variant="contained" type="submit" className="p-2 w-100">
             SIGN UP
-          </button>
+          </Button>
         </div>
       </form>
     </>
